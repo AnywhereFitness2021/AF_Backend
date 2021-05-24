@@ -2,11 +2,11 @@
 
 Contained are 2 APIS, one for accessing and performing CRUD operations with Users, and another for accessing and performing CRUD operations with Classes.
 
-What follows are how you can interact with the APIs and what you can expect.
+What follows are how you can interact with the APIs and what you can expect. Endpoints marked with [todo] are not yet completed.
 
 //////////////////////
 
-BASE URL: 
+BASE URL: https://anywhere-fitness-2021.herokuapp.com/
 
 CLASSES ENDPOINTS: /api/classes
 
@@ -16,43 +16,47 @@ CLASSES ENDPOINTS: /api/classes
 
 Send GET request to /api/classes
 
+Returns: An array of objects, each object being a class
+
+///////////
+
+[GET] [todo] get class by classId
+
+Send GET request to /api/classes/:classId, passing through a classId parameter
+
+Returns: An object representing a class
+
+///////////
+
+[PUT] [todo] update class by classId
+
+Send PUT request to /api/classes/:classId, passing through an updated class in the body along with a classId parameter
+
+Requires: { classId, name }
+
+Takes: { classId, name, type, startTime, duration, intensityLevel, location, attendees, maxClassSize }
+
 Returns: 
 
 ///////////
 
-[GET] get class by classId
+[POST] [todo] create new class
 
-Send GET request to /api/classes/:classId, passing through a classId
+Send POST request to /api/classes, passing through a new class in the body
+
+Requires: { classId, name }
+
+Takes: { classId, name, type, startTime, duration, intensityLevel, location, attendees, maxClassSize }
+
+Returns: 
+
+///////////
+
+[DELETE] [todo] delete existing class by classId
+
+Send DELETE request to /api/classes/:classId, passing through a classId parameter
 
 Returns:
-
-///////////
-
-[PUT] update class by classId
-
-Send PUT request to /api/classes/:classId, passing through an updated class
-
-Requires: 
-
-Takes: 
-
-Returns: 
-
-///////////
-
-[POST] create new class
-
-Send POST request to /api/classes, passing through a new class
-
-Requires: 
-
-Takes: 
-
-Returns: 
-
-///////////
-
-[DELETE] delete existing class by classId
 
 ////////////////////
 
@@ -64,7 +68,7 @@ END CLASSES ENDPOINTS
 
 START USERS ENDPOINTS
 
-BASE URL: 
+BASE URL: https://anywhere-fitness-2021.herokuapp.com/
 
 USERS ENDPOINTS: /api/users
 
@@ -74,70 +78,67 @@ USERS ENDPOINTS: /api/users
 
 Send GET request to /api/users
 
+Returns: An array of objects, each object being a user
+
+///////////
+
+[GET] [todo] get user by userId
+
+Send GET request to /api/users/:userId, passing through a userId parameter
+
+Returns: An object representing a user
+
+///////////
+
+[POST] [todo] register a new user
+
+Send POST request to /api/users/register, passing through a new user in the body
+
+Requires: { username, password, role }
+
 Returns: 
 
 ///////////
 
-[GET] get user by userId
+[POST] [todo] login with existing user
 
-Send GET request to /api/users/:userId, passing through a userId
+Send POST request to /api/users/login, passing through an existing user in the body
 
-Returns: 
-
-///////////
-
-[POST] register a new user
-
-Send POST request to /api/users/register, passing through a new user
-
-Requires: 
-
-Returns: 
-
-///////////
-
-[POST] login with existing user
-
-Send POST request to /api/users/login, passing through an existing user
-
-Requires: 
+Requires: { username, password }
 
 Returns: 
 
 ////////////////////
 
-## Scripts
+## Database Schemas
 
-- **start**: Runs the app.
-- **server**: Runs the app with Nodemon.
-- **migrate**: Migrates the local development database to the latest.
-- **rollback**: Rolls back migrations in the local development database.
-- **seed**: Truncates all tables in the local development database, feel free to add more seed files.
-- **test**: Runs tests.
-- **deploy**: Deploys the main branch to Heroku.
-- **migrateh**: Migrates the Heroku database to the latest.
-- **rollbackh**: Rolls back migrations in the Heroku database.
-- **databaseh**: Interact with the Heroku database from the command line using psql.
-- **seedh**: Runs all seeds in the Heroku database.
+The description of the structure and extra information about each resource stored in our database is listed below.
 
-## Hot Tips
+#### Users
 
-- Figure out the connection to the database and deployment before writing any code.
+| Field       | Data Type | Metadata                                                                    
+| ----------- | --------- | --------------------------------------------------------------------------- |
+| userId      | integer   | do not provide it when creating users, the database will generate it        |
+| username    | string    | required, char limit of 200, must be unique                                 |
+| password    | string    | required, char limit of 200                                                 |
+| role        | string    | required ('client' or 'instructor'), char limit of 200                      |
 
-- If you need to make changes to a migration file that has already been released to Heroku, follow this sequence:
+#### Classes
 
-  1. Roll back migrations in the Heroku database
-  2. Deploy the latest code to Heroku
-  3. Migrate the Heroku database to the latest
+| Field          | Data Type | Metadata                                                                                         |
+| -----------    | --------- | --------------------------------------------------------------------------------------------- |
+| classId        | integer   | do not provide it when creating classes, the database will generate it                        |
+| name           | string    | required, char limit of 200                                                                   |
+| type           | string    | char limit of 200                                                                             |
+| startTime      | string    | char limit of 200                                                                             |
+| duration       | string    | char limit of 200                                                                             |
+| intensityLevel | string    | char limit of 200                                                                             |
+| location       | string    | char limit of 200                                                                             |
+| attendees      | integer   | (number of people signed up for the class)                                                    |
+| maxClassSize   | integer   | (maximum number of people who can sign up for the class)                                      |
 
-- If your frontend devs are clear on the shape of the data they need, you can quickly build provisional endpoints that return mock data. They shouldn't have to wait for you to build the entire backend.
+////////////////////
 
-- Keep your endpoints super lean: the bulk of the code belongs inside models and other middlewares.
+## Test Data
 
-- Validating and sanitizing client data using a library is much less work than doing it manually.
-
-- Revealing crash messages to clients is a security risk, but during development it's helpful if your frontend devs are able to tell you what crashed.
-
-- PostgreSQL comes with [fantastic built-in functions](https://hashrocket.com/blog/posts/faster-json-generation-with-postgresql) for hammering rows into whatever JSON shape.
-
-- If you want to edit a migration that has already been released but don't want to lose all the data, make a new migration instead. This is a more realistic flow for production apps: prod databases are never migrated down. We can migrate Heroku down freely only because there's no valuable data from customers in it. In this sense, Heroku is acting more like a staging environment than production.
+I have populated the database with test data for both Users and Classes, so feel free to use the endpoints to interact with the database however you see fit. I will not add authorization requirements to restricted API operations until later on in the week (to make testing easier for the front end).
