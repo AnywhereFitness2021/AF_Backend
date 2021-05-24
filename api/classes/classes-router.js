@@ -5,7 +5,7 @@ const {
 const Classes = require('./classes-model');
 
 // get all classes
-router.get('/', logger, (req, res, next) => {
+router.get('/', logger, async (req, res, next) => {
     try {
         const classes = await Classes.getClasses();
         res.json(classes);
