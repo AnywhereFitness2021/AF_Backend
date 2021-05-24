@@ -6,7 +6,12 @@ const Classes = require('./classes-model');
 
 // get all classes
 router.get('/', logger, (req, res, next) => {
-
+    try {
+        const classes = await Classes.getClasses();
+        res.json(classes);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // get class by classId
