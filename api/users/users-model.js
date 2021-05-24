@@ -1,7 +1,7 @@
 const db = require('../data/db-config');
 
 function getUsers() {
-    return null;
+    return db.select('*').from('users');
 }
 
 module.exports = {

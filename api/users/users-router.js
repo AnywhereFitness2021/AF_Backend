@@ -5,8 +5,13 @@ const {
 const Users = require('./users-model');
 
 // get all users
-router.get('/', logger, (req, res, next) => {
-    
+router.get('/', logger, async (req, res, next) => {
+    try {
+        const users = await Users.getUsers();
+        res.json(users);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // get user by userId
