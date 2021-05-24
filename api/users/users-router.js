@@ -6,7 +6,7 @@ const Users = require('./users-model');
 
 // get all users
 router.get('/', logger, (req, res, next) => {
-    res.json("Hello")
+    
 });
 
 // get user by userId
