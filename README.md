@@ -8,27 +8,51 @@ What follows are how you can interact with the APIs and what you can expect.
 
 BASE URL: 
 
-CLASSES ENDPOINTS: 
+CLASSES ENDPOINTS: /api/classes
 
 ///////////
 
-[GET] All Classes
+[GET] get all classes
+
+Send GET request to /api/classes
+
+Returns: 
 
 ///////////
 
-[GET] Class By ClassId
+[GET] get class by classId
+
+Send GET request to /api/classes/:classId, passing through a classId
+
+Returns:
 
 ///////////
 
-[PUT] / Update Class By ClassId
+[PUT] update class by classId
+
+Send PUT request to /api/classes/:classId, passing through an updated class
+
+Requires: 
+
+Takes: 
+
+Returns: 
 
 ///////////
 
-[POST] New Class
+[POST] create new class
+
+Send POST request to /api/classes, passing through a new class
+
+Requires: 
+
+Takes: 
+
+Returns: 
 
 ///////////
 
-[DELETE] Class By ClassId
+[DELETE] delete existing class by classId
 
 ////////////////////
 
@@ -42,23 +66,43 @@ START USERS ENDPOINTS
 
 BASE URL: 
 
-USERS ENDPOINTS: 
+USERS ENDPOINTS: /api/users
 
 ///////////
 
-[GET] All Users
+[GET] get all users
+
+Send GET request to /api/users
+
+Returns: 
 
 ///////////
 
-[GET] User By Id
+[GET] get user by userId
+
+Send GET request to /api/users/:userId, passing through a userId
+
+Returns: 
 
 ///////////
 
-[POST] Registration Of New User
+[POST] register a new user
+
+Send POST request to /api/users/register, passing through a new user
+
+Requires: 
+
+Returns: 
 
 ///////////
 
-[POST] Login Of User
+[POST] login with existing user
+
+Send POST request to /api/users/login, passing through an existing user
+
+Requires: 
+
+Returns: 
 
 ////////////////////
 

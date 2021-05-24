@@ -11,7 +11,7 @@
     "rollbackh": "heroku run knex migrate:rollback -a anywhere-fitness-2021",
     "databaseh": "heroku pg:psql -a anywhere-fitness-2021",
     "seedh": "heroku run knex seed:run -a anywhere-fitness-2021",
-    "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand",
+    "test": "jest",
     "deploy": "git push heroku main"
   },
   "engines": {
@@ -34,10 +34,10 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@types/jest": "=26.0.22",
-    "cross-env": "=7.0.3",
+    "@types/jest": "^26.0.23",
+    "cross-env": "^7.0.3",
     "eslint": "=7.22.0",
-    "jest": "=26.6.3",
+    "jest": "^26.6.3",
     "jwt-decode": "^3.1.2",
     "nodemon": "=2.0.7",
     "supertest": "=6.1.3"
