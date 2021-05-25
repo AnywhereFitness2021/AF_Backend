@@ -5,6 +5,7 @@ exports.up = async function (knex) {
       tbl.string('username', 200).notNullable().unique()
       tbl.string('password', 200).notNullable()
       tbl.string('role', 200).notNullable()
+      tbl.boolean('skip').defaultTo(0)
     });
 };
 

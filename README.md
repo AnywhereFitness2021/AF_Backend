@@ -96,6 +96,8 @@ Send POST request to /api/users/register, passing through a new user in the body
 
 Requires: { username, password, role }
 
+Takes: { username, password, role, skip }
+
 Returns: 
 
 ///////////
@@ -122,10 +124,11 @@ The description of the structure and extra information about each resource store
 | username    | string    | required, char limit of 200, must be unique                                 |
 | password    | string    | required, char limit of 200                                                 |
 | role        | string    | required ('client' or 'instructor'), char limit of 200                      |
+| skip        | boolean   | defaults to false                                                           |
 
 #### Classes
 
-| Field          | Data Type | Metadata                                                                                         |
+| Field          | Data Type | Metadata                                                                                      |
 | -----------    | --------- | --------------------------------------------------------------------------------------------- |
 | classId        | integer   | do not provide it when creating classes, the database will generate it                        |
 | name           | string    | required, char limit of 200                                                                   |
@@ -134,8 +137,8 @@ The description of the structure and extra information about each resource store
 | duration       | string    | char limit of 200                                                                             |
 | intensityLevel | string    | char limit of 200                                                                             |
 | location       | string    | char limit of 200                                                                             |
-| attendees      | integer   | (number of people signed up for the class)                                                    |
-| maxClassSize   | integer   | (maximum number of people who can sign up for the class)                                      |
+| attendees      | integer   | defaults to 0 (number of people signed up for the class)                                      |
+| maxClassSize   | integer   | defaults to 20 (maximum number of people who can sign up for the class)                       |
 
 ////////////////////
 

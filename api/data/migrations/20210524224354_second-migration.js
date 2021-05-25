@@ -8,8 +8,8 @@ exports.up = async function (knex) {
       tbl.string('duration', 200)
       tbl.string('intensityLevel', 200)
       tbl.string('location', 200)
-      tbl.integer('attendees')
-      tbl.integer('maxClassSize')
+      tbl.integer('attendees').defaultTo(0)
+      tbl.integer('maxClassSize').defaultTo(20)
   });
 };
 
