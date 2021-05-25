@@ -124,7 +124,7 @@ The description of the structure and extra information about each resource store
 | username    | string    | required, must be unique, char limit of 200                                 |
 | password    | string    | required, must be at least 4 chars, char limit of 200                       |
 | role        | string    | required ('Client' or 'Instructor'), char limit of 200                      |
-| skip        | boolean   | defaults to false                                                           |
+| skip        | boolean   | defaults to false (this determines if onboarding is skipped)                |
 
 #### Classes
 
