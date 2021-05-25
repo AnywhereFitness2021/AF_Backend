@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const {
-    logger, validateClassId, validateClass
+    logger,
+    validateClassId,
+    validateClass
 } = require('../middleware');
 const Classes = require('./classes-model');
 

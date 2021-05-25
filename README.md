@@ -90,7 +90,7 @@ Returns: An object representing the user searched for
 
 ///////////
 
-[POST] [todo] register a new user
+[POST] register a new user
 
 Send POST request to /api/users/register, passing through a new user in the body
 
@@ -98,7 +98,7 @@ Requires: { username, password, role }
 
 Takes: { username, password, role, skip }
 
-Returns: 
+Returns: An object representing the newly created user
 
 ///////////
 
@@ -121,9 +121,9 @@ The description of the structure and extra information about each resource store
 | Field       | Data Type | Metadata                                                                    
 | ----------- | --------- | --------------------------------------------------------------------------- |
 | userId      | integer   | do not provide it when creating users, the database will generate it        |
-| username    | string    | required, char limit of 200, must be unique                                 |
-| password    | string    | required, char limit of 200                                                 |
-| role        | string    | required ('client' or 'instructor'), char limit of 200                      |
+| username    | string    | required, must be unique, char limit of 200                                 |
+| password    | string    | required, must be at least 4 chars, char limit of 200                       |
+| role        | string    | required ('Client' or 'Instructor'), char limit of 200                      |
 | skip        | boolean   | defaults to false                                                           |
 
 #### Classes

@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const {
-    logger, validateUserId
+    logger,
+    validateUserId,
+    validateUser,
+    checkUniqueUsername
 } = require('../middleware');
 const Users = require('./users-model');
 
@@ -25,8 +28,18 @@ router.get('/:userId', logger, validateUserId, async (req, res, next) => {
 });
 
 // register a new user
-router.post('/register', logger, (req, res, next) => {
-
+router.post('/register', logger, validateUser, checkUniqueUsername, async (req, res, next) => {
+    try {
+        const newUser = await Users.insertUser(req.body);
+        res.status(201).json({
+            userId: newUser.userId,
+            username: newUser.username,
+            role: newUser.role,
+            skip: newUser.skip
+        });
+    } catch (err) {
+        next(err);
+    }
 });
 
 // login with existing user
