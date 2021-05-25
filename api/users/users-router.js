@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-    logger
+    logger, validateUserId
 } = require('../middleware');
 const Users = require('./users-model');
 
@@ -15,7 +15,7 @@ router.get('/', logger, async (req, res, next) => {
 });
 
 // get user by userId
-router.get('/:userId', logger, async (req, res, next) => {
+router.get('/:userId', logger, validateUserId, async (req, res, next) => {
     try {
         const searchedUser = await Users.getUserById(req.params.userId);
         res.json(searchedUser);

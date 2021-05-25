@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-    logger
+    logger, validateClassId
 } = require('../middleware');
 const Classes = require('./classes-model');
 
@@ -15,7 +15,7 @@ router.get('/', logger, async (req, res, next) => {
 });
 
 // get class by classId
-router.get('/:classId', logger, async (req, res, next) => {
+router.get('/:classId', logger, validateClassId, async (req, res, next) => {
     try {
         const searchedClass = await Classes.getClassById(req.params.classId);
         res.json(searchedClass);

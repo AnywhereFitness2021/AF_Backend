@@ -15,6 +15,36 @@ function logger(req, res, next) {
     next();
 }
 
+async function validateUserId(req, res, next) {
+    try {
+        const searchedUser = await Users.getUserById(req.params.userId);
+        if (!searchedUser) {
+            next({ status: 404, message: `User with ID ${req.params.userId} not found!` });
+        } else {
+            req.existingUser = searchedUser;
+            next();
+        }
+    } catch (err) {
+        next(err);
+    }    
+}
+
+async function validateClassId(req, res, next) {
+    try {
+        const searchedClass = await Classes.getClassById(req.params.classId);
+        if (!searchedClass) {
+            next({ status: 404, message: `Class with ID ${req.params.classId} not found!` });
+        } else {
+            req.existingClass = searchedClass;
+            next();
+        }
+    } catch (err) {
+        next(err);
+    }    
+}
+
 module.exports = {
-    logger
+    logger,
+    validateUserId,
+    validateClassId
 }
