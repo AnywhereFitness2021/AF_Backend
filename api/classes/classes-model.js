@@ -15,8 +15,13 @@ async function removeClassById(classId) {
     return searchedClass;
 }
 
+function insertClass(classToInsert) {
+    return db('classes').insert(classToInsert, 'classId').then(([classId]) => getClassById(classId));
+}
+
 module.exports = {
     getClasses,
     getClassById,
-    removeClassById
+    removeClassById,
+    insertClass
 }

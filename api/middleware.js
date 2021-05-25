@@ -43,8 +43,49 @@ async function validateClassId(req, res, next) {
     }    
 }
 
+const classSchema = yup.object({
+    name: yup.string()
+        .trim()
+        .required('a name for the class is required')
+        .max(200, 'name cannot be more than 200 chars'),
+    type: yup.string()
+        .trim()
+        .max(200, 'type cannot be more than 200 chars'),
+    startTime: yup.string()
+        .trim()
+        .max(200, 'startTime cannot be more than 200 chars'),
+    duration: yup.string()
+        .trim()
+        .max(200, 'startTime cannot be more than 200 chars'),
+    intensityLevel: yup.string()
+        .trim()
+        .max(200, 'intensityLevel cannot be more than 200 chars'),
+    location: yup.string()
+        .trim()
+        .max(200, 'location cannot be more than 200 chars'),
+    attendees: yup.number()
+        .min(0, 'attendees cannot be less than 0')
+        .max(100, 'attendees cannot be more than 100'),
+    maxClassSize: yup.number()
+        .min(0, 'maxClassSize cannot be less than 0')
+        .max(100, 'maxClassSize cannot be more than 100')
+});
+
+async function validateClass(req, res, next) {
+    try {
+        const validatedBody = await classSchema.validate(req.body, {
+            stripUnknown: true
+        });
+        req.body = validatedBody;
+        next();
+    } catch (err) {
+        next({ status: 400, message: err.message });
+    }
+}
+
 module.exports = {
     logger,
     validateUserId,
-    validateClassId
+    validateClassId,
+    validateClass
 }

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-    logger, validateClassId
+    logger, validateClassId, validateClass
 } = require('../middleware');
 const Classes = require('./classes-model');
 
@@ -30,8 +30,13 @@ router.put('/:classId', logger, (req, res, next) => {
 });
 
 // create new class
-router.post('/', logger, (req, res, next) => {
-
+router.post('/', logger, validateClass, async (req, res, next) => {
+    try {
+        const insertedClass = await Classes.insertClass(req.body);
+        res.status(201).json(insertedClass);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // delete existing class by classId
