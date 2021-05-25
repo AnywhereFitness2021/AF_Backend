@@ -35,8 +35,13 @@ router.post('/', logger, (req, res, next) => {
 });
 
 // delete existing class by classId
-router.delete('/:classId', logger, (req, res, next) => {
-
+router.delete('/:classId', logger, validateClassId, async (req, res, next) => {
+    try {
+        const deletedClass = await Classes.removeClassById(req.params.classId);
+        res.json(deletedClass);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // catch-all error handler

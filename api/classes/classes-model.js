@@ -9,7 +9,14 @@ async function getClassById(classId) {
     return searchedClass;
 }
 
+async function removeClassById(classId) {
+    const searchedClass = await db('classes').where('classId', classId).first();
+    await db('classes').where('classId', classId).del();
+    return searchedClass;
+}
+
 module.exports = {
     getClasses,
-    getClassById
+    getClassById,
+    removeClassById
 }

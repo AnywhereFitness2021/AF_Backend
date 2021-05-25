@@ -24,7 +24,7 @@ Returns: An array of objects, each object being a class
 
 Send GET request to /api/classes/:classId, passing through a classId parameter
 
-Returns: An object representing a class
+Returns: An object representing the class searched for
 
 ///////////
 
@@ -52,11 +52,11 @@ Returns:
 
 ///////////
 
-[DELETE] [todo] delete existing class by classId
+[DELETE] delete existing class by classId
 
 Send DELETE request to /api/classes/:classId, passing through a classId parameter
 
-Returns:
+Returns: An object representing the deleted class
 
 ////////////////////
 
@@ -86,7 +86,7 @@ Returns: An array of objects, each object being a user
 
 Send GET request to /api/users/:userId, passing through a userId parameter
 
-Returns: An object representing a user
+Returns: An object representing the user searched for
 
 ///////////
 
