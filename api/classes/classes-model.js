@@ -19,9 +19,14 @@ function insertClass(classToInsert) {
     return db('classes').insert(classToInsert, 'classId').then(([classId]) => getClassById(classId));
 }
 
+function updateClass(classId, changes) {
+    return db('classes').where('classId', classId).update(changes).then((count) => (count > 0 ? getClassById(classId) : null));
+}
+
 module.exports = {
     getClasses,
     getClassById,
     removeClassById,
-    insertClass
+    insertClass,
+    updateClass
 }

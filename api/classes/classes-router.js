@@ -25,8 +25,13 @@ router.get('/:classId', logger, validateClassId, async (req, res, next) => {
 });
 
 // update class by classId
-router.put('/:classId', logger, (req, res, next) => {
-
+router.put('/:classId', logger, validateClass, validateClassId, async (req, res, next) => {
+    try {
+        const updatedClass = await Classes.updateClass(req.params.classId, req.body);
+        res.status(201).json(updatedClass);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // create new class
