@@ -28,7 +28,7 @@ Returns: An object representing the class searched for
 
 ///////////
 
-[PUT] [todo] update class by classId
+[PUT] update class by classId
 
 Send PUT request to /api/classes/:classId, passing through an updated class in the body along with a classId parameter
 
@@ -36,7 +36,7 @@ Requires: { name }
 
 Takes: { name, type, startTime, duration, intensityLevel, location, attendees, maxClassSize }
 
-Returns: 
+Returns: An object representing the updated class
 
 ///////////
 
