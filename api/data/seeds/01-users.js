@@ -3,12 +3,12 @@ exports.seed = async function(knex) {
         {
             username: 'yogastudent123',
             password: 'ireally<3yoga',
-            role: 'client'
+            role: 'Client'
         },
         {
             username: 'yogateacher123',
             password: 'ireally<3yoga',
-            role: 'instructor'
+            role: 'Instructor'
         }
     ]);
 }
