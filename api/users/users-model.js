@@ -16,11 +16,12 @@ async function getUserByUsername(username) {
 }
 
 async function insertUser(userToInsert) {
+    const { username, password, role, skip } = userToInsert;
     const hash = bcrypt.hashSync(
-        userToInsert.password,
+        password,
         8
     );
-    return db('users').insert({ username: userToInsert.username, password: hash, role: userToInsert.role, skip: userToInsert.skip }, 'userId').then(([userId]) => getUserById(userId));
+    return db('users').insert({ username, password: hash, role, skip }, 'userId').then(([userId]) => getUserById(userId));
 }
 
 module.exports = {

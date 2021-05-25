@@ -3,9 +3,13 @@ const {
     logger,
     validateUserId,
     validateUser,
-    checkUniqueUsername
+    checkUniqueUsername,
+    checkExistingUsername,
+    validateLoginBody
 } = require('../middleware');
 const Users = require('./users-model');
+const bcrypt = require('bcryptjs');
+const tokenBuilder = require('../secrets/index');
 
 // get all users
 router.get('/', logger, async (req, res, next) => {
@@ -43,8 +47,22 @@ router.post('/register', logger, validateUser, checkUniqueUsername, async (req, 
 });
 
 // login with existing user
-router.post('/login', logger, (req, res, next) => {
-
+router.post('/login', logger, validateLoginBody, checkExistingUsername, async (req, res, next) => {
+    const { username, password } = req.body;
+    const dbUser = await Users.getUserByUsername(username);
+    try {
+        if (bcrypt.compareSync(password, dbUser.password)) {
+            const token = tokenBuilder(dbUser);
+            res.json({
+                token: token,
+                welcomeMessage: `Welcome to Anywhere Fitness, ${username}!`
+            });
+        } else {
+            next({ status: 401, message: 'invalid credentials' });
+        }
+    } catch (err) {
+        next({ status: 401, message: 'invalid credentials' });
+    }
 });
 
 // catch-all error handler

@@ -102,13 +102,13 @@ Returns: An object representing the newly created user
 
 ///////////
 
-[POST] [todo] login with existing user
+[POST] login with existing user
 
 Send POST request to /api/users/login, passing through an existing user in the body
 
 Requires: { username, password }
 
-Returns: 
+Returns: An object containing an authorization token along with a customized welcome message
 
 ////////////////////
 

@@ -73,6 +73,43 @@ async function checkUniqueUsername(req, res, next) {
     }
 }
 
+async function checkExistingUsername(req, res, next) {
+    try {
+        const searchedUser = await Users.getUserByUsername(req.body.username);
+        if (!searchedUser) {
+            next({ status: 401, message: 'invalid credentials' });            
+        } else {
+            next();
+        }
+    } catch (err) {
+        next(err);
+    }
+}
+
+const loginBodySchema = yup.object({
+    username: yup.string()
+        .trim()
+        .required('username is required')
+        .max(200, 'username cannot be more than 200 chars'),
+    password: yup.string()
+        .trim()
+        .required('password is required')
+        .min(4, 'password must be at least 4 chars long')
+        .max(200, 'password cannot be more than 200 chars'),
+});
+
+async function validateLoginBody(req, res, next) {
+    try {
+        const validatedBody = await loginBodySchema.validate(req.body, {
+            stripUnknown: true
+        });
+        req.body = validatedBody;
+        next();
+    } catch (err) {
+        next({ status: 400, message: err.message });
+    }
+}
+
 async function validateClassId(req, res, next) {
     try {
         const searchedClass = await Classes.getClassById(req.params.classId);
@@ -132,6 +169,8 @@ module.exports = {
     validateUserId,
     validateUser,
     checkUniqueUsername,
+    checkExistingUsername,
+    validateLoginBody,
     validateClassId,
     validateClass
 }
