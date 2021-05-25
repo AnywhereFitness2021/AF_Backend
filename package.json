@@ -11,7 +11,7 @@
     "rollbackh": "heroku run knex migrate:rollback -a anywhere-fitness-2021",
     "databaseh": "heroku pg:psql -a anywhere-fitness-2021",
     "seedh": "heroku run knex seed:run -a anywhere-fitness-2021",
-    "test": "jest",
+    "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand",
     "deploy": "git push heroku main"
   },
   "engines": {
