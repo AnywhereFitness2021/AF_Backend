@@ -9,7 +9,8 @@ function logger(req, res, next) {
         ${req.method} request to "${req.baseUrl}" endpoint
 
         req.body:   ${JSON.stringify(req.body)}
-        req.params.id:   ${req.params.id}
+        req.params.userId:   ${req.params.userId}
+        req.params.classId:   ${req.params.classId}
     `);
     next();
 }

@@ -15,8 +15,13 @@ router.get('/', logger, async (req, res, next) => {
 });
 
 // get user by userId
-router.get('/:userId', logger, (req, res, next) => {
-
+router.get('/:userId', logger, async (req, res, next) => {
+    try {
+        const searchedUser = await Users.getUserById(req.params.userId);
+        res.json(searchedUser);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // register a new user

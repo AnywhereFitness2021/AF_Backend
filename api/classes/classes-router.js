@@ -15,8 +15,13 @@ router.get('/', logger, async (req, res, next) => {
 });
 
 // get class by classId
-router.get('/:classId', logger, (req, res, next) => {
-
+router.get('/:classId', logger, async (req, res, next) => {
+    try {
+        const searchedClass = await Classes.getClassById(req.params.classId);
+        res.json(searchedClass);
+    } catch (err) {
+        next(err);
+    }
 });
 
 // update class by classId

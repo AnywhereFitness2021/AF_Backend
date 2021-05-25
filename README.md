@@ -20,7 +20,7 @@ Returns: An array of objects, each object being a class
 
 ///////////
 
-[GET] [todo] get class by classId
+[GET] get class by classId
 
 Send GET request to /api/classes/:classId, passing through a classId parameter
 
@@ -82,7 +82,7 @@ Returns: An array of objects, each object being a user
 
 ///////////
 
-[GET] [todo] get user by userId
+[GET] get user by userId
 
 Send GET request to /api/users/:userId, passing through a userId parameter
 
@@ -128,17 +128,17 @@ The description of the structure and extra information about each resource store
 
 #### Classes
 
-| Field          | Data Type | Metadata                                                                                      |
-| -----------    | --------- | --------------------------------------------------------------------------------------------- |
-| classId        | integer   | do not provide it when creating classes, the database will generate it                        |
-| name           | string    | required, char limit of 200                                                                   |
-| type           | string    | char limit of 200                                                                             |
-| startTime      | string    | char limit of 200                                                                             |
-| duration       | string    | char limit of 200                                                                             |
-| intensityLevel | string    | char limit of 200                                                                             |
-| location       | string    | char limit of 200                                                                             |
-| attendees      | integer   | defaults to 0 (number of people signed up for the class)                                      |
-| maxClassSize   | integer   | defaults to 20 (maximum number of people who can sign up for the class)                       |
+| Field          | Data Type | Metadata                                                                     
+| -----------    | --------- | ---------------------------------------------------------------------------- |
+| classId        | integer   | do not provide it when creating classes, the database will generate it       |
+| name           | string    | required, char limit of 200                                                  |
+| type           | string    | char limit of 200                                                            |
+| startTime      | string    | char limit of 200                                                            |
+| duration       | string    | char limit of 200                                                            |
+| intensityLevel | string    | char limit of 200                                                            |
+| location       | string    | char limit of 200                                                            |
+| attendees      | integer   | defaults to 0 (number of people signed up for the class)                     |
+| maxClassSize   | integer   | defaults to 20 (maximum number of people who can sign up for the class)      |
 
 ////////////////////
 
