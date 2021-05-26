@@ -79,7 +79,7 @@ router.post('/login', logger, validateLoginBody, checkExistingUsername, async (r
 
 // catch-all error handler
 router.use((err, req, res, next) => { // eslint-disable-line
-    res.status(500).json({
+    res.status(err.status || 500).json({
         note: 'An error occurred in the users router!',
         message: err.message,
         stack: err.stack
