@@ -45,8 +45,8 @@ const userSchema = yup.object({
         .required('role is required')
         .max(200, 'role cannot be more than 200 chars'),
     skip: yup.number()
-        .min(0, 'skip must be entered as a boolean: 1 for complete, 0 for incomplete')
-        .max(1, 'skip must be entered as a boolean: 1 for complete, 0 for incomplete')
+        .min(0, 'skip must be entered as a boolean: 1 for true, 0 for false')
+        .max(1, 'skip must be entered as a boolean: 1 for true, 0 for false')
 });
 
 async function validateUser(req, res, next) {
@@ -58,6 +58,25 @@ async function validateUser(req, res, next) {
         next();
     } catch (err) {
         next({ status: 400, message: err.message });
+    }
+}
+
+const patchSkipSchema = yup.object({
+    skip: yup.number()
+        .required()
+        .min(0, 'skip must be provided and entered as a boolean: 1 for true, 0 for false')
+        .max(1, 'skip must be provided and entered as a boolean: 1 for true, 0 for false')
+});
+
+async function validatePatchSkip(req, res, next) {
+    try {
+        const validatedBody = await patchSkipSchema.validate(req.body, {
+            stripUnknown: true
+        });
+        req.body = validatedBody;
+        next();
+    } catch (err) {
+        next({ status: 400, message: 'skip must be provided and entered as a boolean: 1 for true, 0 for false' });
     }
 }
 
@@ -189,6 +208,7 @@ module.exports = {
     logger,
     validateUserId,
     validateUser,
+    validatePatchSkip,
     checkUniqueUsername,
     checkExistingUsername,
     validateLoginBody,

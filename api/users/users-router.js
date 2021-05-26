@@ -3,6 +3,7 @@ const {
     logger,
     validateUserId,
     validateUser,
+    validatePatchSkip,
     checkUniqueUsername,
     checkExistingUsername,
     validateLoginBody
@@ -26,6 +27,16 @@ router.get('/:userId', logger, validateUserId, async (req, res, next) => {
     try {
         const searchedUser = await Users.getUserById(req.params.userId);
         res.json(searchedUser);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// patch user "skip" by userId
+router.patch('/:userId', logger, validatePatchSkip, validateUserId, async (req, res, next) => {
+    try {
+        const updatedUser = await Users.patchSkip(req.params.userId, req.body);
+        res.status(201).json(updatedUser);
     } catch (err) {
         next(err);
     }

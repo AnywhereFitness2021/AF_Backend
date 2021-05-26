@@ -24,9 +24,14 @@ async function insertUser(userToInsert) {
     return db('users').insert({ username, password: hash, role, skip }, 'userId').then(([userId]) => getUserById(userId));
 }
 
+function patchSkip(userId, changes) {
+    return db('users').where('userId', userId).update(changes).then((count) => (count > 0 ? getUserById(userId) : null));
+}
+
 module.exports = {
     getUsers,
     getUserById,
     getUserByUsername,
-    insertUser
+    insertUser,
+    patchSkip
 }

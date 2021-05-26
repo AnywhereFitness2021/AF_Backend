@@ -29,6 +29,7 @@ Returns: An object representing the class searched for
 ///////////
 
 [PUT] update class by classId
+
 [restrictedToInstructor] request header must include (saved under "Authorization") a valid token generated upon logging in with an instructor's account
 
 Send PUT request to /api/classes/:classId, passing through an updated class in the body along with a classId parameter
@@ -42,6 +43,7 @@ Returns: An object representing the updated class
 ///////////
 
 [POST] create new class
+
 [restrictedToInstructor] request header must include (saved under "Authorization") a valid token generated upon logging in with an instructor's account
 
 Send POST request to /api/classes, passing through a new class in the body
@@ -55,6 +57,7 @@ Returns: An object representing the newly created class
 ///////////
 
 [DELETE] delete existing class by classId
+
 [restrictedToInstructor] request header must include (saved under "Authorization") a valid token generated upon logging in with an instructor's account
 
 Send DELETE request to /api/classes/:classId, passing through a classId parameter
@@ -90,6 +93,16 @@ Returns: An array of objects, each object being a user
 Send GET request to /api/users/:userId, passing through a userId parameter
 
 Returns: An object representing the user searched for
+
+///////////
+
+[PATCH] patch user "skip" boolean by userId
+
+Send PATCH request to /api/users/:userId, passing through an object containing the updated "skip" property in the body, along with a userId parameter
+
+Requires: { skip }
+
+Returns: An object representing the updated user
 
 ///////////
 
