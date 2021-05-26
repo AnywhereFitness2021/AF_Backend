@@ -2,7 +2,8 @@ const router = require('express').Router();
 const {
     logger,
     validateClassId,
-    validateClass
+    validateClass,
+    restrictToInstructor
 } = require('../middleware');
 const Classes = require('./classes-model');
 
@@ -27,7 +28,7 @@ router.get('/:classId', logger, validateClassId, async (req, res, next) => {
 });
 
 // update class by classId
-router.put('/:classId', logger, validateClass, validateClassId, async (req, res, next) => {
+router.put('/:classId', logger, restrictToInstructor, validateClass, validateClassId, async (req, res, next) => {
     try {
         const updatedClass = await Classes.updateClass(req.params.classId, req.body);
         res.status(201).json(updatedClass);
@@ -37,7 +38,7 @@ router.put('/:classId', logger, validateClass, validateClassId, async (req, res,
 });
 
 // create new class
-router.post('/', logger, validateClass, async (req, res, next) => {
+router.post('/', logger, restrictToInstructor, validateClass, async (req, res, next) => {
     try {
         const insertedClass = await Classes.insertClass(req.body);
         res.status(201).json(insertedClass);
@@ -47,7 +48,7 @@ router.post('/', logger, validateClass, async (req, res, next) => {
 });
 
 // delete existing class by classId
-router.delete('/:classId', logger, validateClassId, async (req, res, next) => {
+router.delete('/:classId', logger, restrictToInstructor, validateClassId, async (req, res, next) => {
     try {
         const deletedClass = await Classes.removeClassById(req.params.classId);
         res.json(deletedClass);

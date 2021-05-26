@@ -1,6 +1,7 @@
 const yup = require('yup');
 const Users = require('./users/users-model');
 const Classes = require('./classes/classes-model');
+const jwt = require('jsonwebtoken');
 
 function logger(req, res, next) {
     console.log(`
@@ -164,6 +165,26 @@ async function validateClass(req, res, next) {
     }
 }
 
+function restrictToInstructor(req, res, next) {
+    const token = req.headers.authorization
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+            if (err) {
+                next({ status: 401, message: 'token invalid' });
+            } else {
+                req.decodedJwt = decoded;
+                if (req.decodedJwt.role === 'Instructor' || req.decodedJwt.role === 'instructor') {
+                    next();
+                } else {
+                    next({ status: 401, message: `${req.decodedJwt.username}'s role of ${req.decodedJwt.role} is not authorized to make this operation` });
+                }
+            }
+        })
+    } else {
+        next({ status: 401, message: 'token missing from authorization in the header' });
+    }
+}
+
 module.exports = {
     logger,
     validateUserId,
@@ -172,5 +193,6 @@ module.exports = {
     checkExistingUsername,
     validateLoginBody,
     validateClassId,
-    validateClass
+    validateClass,
+    restrictToInstructor
 }

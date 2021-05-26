@@ -2,7 +2,7 @@
 
 Contained are 2 APIS, one for accessing and performing CRUD operations with Users, and another for accessing and performing CRUD operations with Classes.
 
-What follows are how you can interact with the APIs and what you can expect. Endpoints marked with [todo] are not yet completed.
+What follows are how you can interact with the APIs and what you can expect. Endpoints marked with [restrictedToInstructor] are only accessible by sending in your request (in the header, saved under "Authorization") the token generated upon logging in with an instructor's account.
 
 //////////////////////
 
@@ -29,6 +29,7 @@ Returns: An object representing the class searched for
 ///////////
 
 [PUT] update class by classId
+[restrictedToInstructor] request header must include (saved under "Authorization") a valid token generated upon logging in with an instructor's account
 
 Send PUT request to /api/classes/:classId, passing through an updated class in the body along with a classId parameter
 
@@ -41,6 +42,7 @@ Returns: An object representing the updated class
 ///////////
 
 [POST] create new class
+[restrictedToInstructor] request header must include (saved under "Authorization") a valid token generated upon logging in with an instructor's account
 
 Send POST request to /api/classes, passing through a new class in the body
 
@@ -53,6 +55,7 @@ Returns: An object representing the newly created class
 ///////////
 
 [DELETE] delete existing class by classId
+[restrictedToInstructor] request header must include (saved under "Authorization") a valid token generated upon logging in with an instructor's account
 
 Send DELETE request to /api/classes/:classId, passing through a classId parameter
 
@@ -144,4 +147,4 @@ The description of the structure and extra information about each resource store
 
 ## Test Data
 
-I have populated the database with test data for both Users and Classes, so feel free to use the endpoints to interact with the database however you see fit. I will not add authorization requirements to restricted API operations until later on in the week (to make testing easier for the front end).
+I have populated the database with test data for both Users and Classes, so feel free to use the endpoints to interact with the database however you see fit. Note that you cannot actually login with any of the test users because their passwords are not hashed in the database.
