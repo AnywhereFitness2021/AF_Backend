@@ -108,7 +108,7 @@ Send POST request to /api/users/login, passing through an existing user in the b
 
 Requires: { username, password }
 
-Returns: An object containing an authorization token along with a customized welcome message
+Returns: An object containing an authorization token, a customized welcome message, and the user's role
 
 ////////////////////
 
