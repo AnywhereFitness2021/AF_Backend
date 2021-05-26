@@ -55,7 +55,8 @@ router.post('/login', logger, validateLoginBody, checkExistingUsername, async (r
             const token = tokenBuilder(dbUser);
             res.json({
                 token: token,
-                welcomeMessage: `Welcome to Anywhere Fitness, ${username}!`
+                welcomeMessage: `Welcome to Anywhere Fitness, ${username}!`,
+                role: dbUser.role
             });
         } else {
             next({ status: 401, message: 'invalid credentials' });
