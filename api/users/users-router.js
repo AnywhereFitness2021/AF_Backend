@@ -67,7 +67,8 @@ router.post('/login', logger, validateLoginBody, checkExistingUsername, async (r
             res.json({
                 token: token,
                 welcomeMessage: `Welcome to Anywhere Fitness, ${username}!`,
-                role: dbUser.role
+                role: dbUser.role,
+                userId: dbUser.userId
             });
         } else {
             next({ status: 401, message: 'invalid credentials' });
