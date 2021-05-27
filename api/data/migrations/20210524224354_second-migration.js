@@ -10,6 +10,11 @@ exports.up = async function (knex) {
       tbl.string('location', 200)
       tbl.integer('attendees').defaultTo(0)
       tbl.integer('maxClassSize').defaultTo(20)
+      tbl.integer('userId')
+        .notNullable()
+        .unsigned()
+        .references('userId')
+        .inTable('users')
   });
 };
 

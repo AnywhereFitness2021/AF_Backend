@@ -7,6 +7,7 @@ exports.seed = async function(knex) {
             duration: '25 Minutes',
             intensityLevel: 'Advanced',
             location: 'North Mountain',
+            userId: 2
         },
         {
             name: 'Yoga Made Easy',
@@ -15,6 +16,7 @@ exports.seed = async function(knex) {
             duration: '35 Minutes',
             intensityLevel: 'Beginner',
             location: 'Mute City',
+            userId: 2
         },
         {
             name: 'Practicing the Squat & Deadlift',
@@ -23,6 +25,7 @@ exports.seed = async function(knex) {
             duration: '30 Minutes',
             intensityLevel: 'Intermediate',
             location: 'Big Blue',
+            userId: 2
         }
     ]);
 }

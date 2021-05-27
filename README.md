@@ -34,9 +34,9 @@ Returns: An object representing the class searched for
 
 Send PUT request to /api/classes/:classId, passing through an updated class in the body along with a classId parameter
 
-Requires: { name }
+Requires: { name, userId }
 
-Takes: { name, type, startTime, duration, intensityLevel, location, attendees, maxClassSize }
+Takes: { name, type, startTime, duration, intensityLevel, location, attendees, maxClassSize, userId }
 
 Returns: An object representing the updated class
 
@@ -48,9 +48,9 @@ Returns: An object representing the updated class
 
 Send POST request to /api/classes, passing through a new class in the body
 
-Requires: { name }
+Requires: { name, userId }
 
-Takes: { name, type, startTime, duration, intensityLevel, location, attendees, maxClassSize }
+Takes: { name, type, startTime, duration, intensityLevel, location, attendees, maxClassSize, userId }
 
 Returns: An object representing the newly created class
 
@@ -124,7 +124,7 @@ Send POST request to /api/users/login, passing through an existing user in the b
 
 Requires: { username, password }
 
-Returns: An object containing an authorization token, a customized welcome message, and the user's role
+Returns: An object containing an authorization token, a customized welcome message, the user's role, the user's "skip" property, and the user's userId
 
 ////////////////////
 
@@ -145,16 +145,17 @@ The description of the structure and extra information about each resource store
 #### Classes
 
 | Field          | Data Type | Metadata                                                                     
-| -----------    | --------- | --------------------------------------------------------------------------------------------- |
-| classId        | integer   | do not provide it when creating classes, the database will generate it                        |
-| name           | string    | required, char limit of 200                                                                   |
-| type           | string    | char limit of 200                                                                             |
-| startTime      | string    | char limit of 200                                                                             |
-| duration       | string    | char limit of 200                                                                             |
-| intensityLevel | string    | char limit of 200                                                                             |
-| location       | string    | char limit of 200                                                                             |
-| attendees      | integer   | min of 0, max of 100, defaults to 0 (number of people signed up for the class)                |
-| maxClassSize   | integer   | min of 0, max of 100, defaults to 20 (maximum number of people who can sign up for the class) |
+| -----------    | --------- | --------------------------------------------------------------------------------------------------- |
+| classId        | integer   | do not provide it when creating classes, the database will generate it                              |
+| name           | string    | required, char limit of 200                                                                         |
+| type           | string    | char limit of 200                                                                                   |
+| startTime      | string    | char limit of 200                                                                                   |
+| duration       | string    | char limit of 200                                                                                   |
+| intensityLevel | string    | char limit of 200                                                                                   |
+| location       | string    | char limit of 200                                                                                   |
+| attendees      | integer   | min of 0, max of 100, defaults to 0 (number of people signed up for the class)                      |
+| maxClassSize   | integer   | min of 0, max of 100, defaults to 20 (maximum number of people who can sign up for the class)       |
+| userId         | integer   | min of 1, corresponds to an existing userId in the users table (the instructor teaching this class) |  
 
 ////////////////////
 

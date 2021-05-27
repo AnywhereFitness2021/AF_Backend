@@ -20,10 +20,28 @@ async function validateUserId(req, res, next) {
     try {
         const searchedUser = await Users.getUserById(req.params.userId);
         if (!searchedUser) {
-            next({ status: 404, message: `User with ID ${req.params.userId} not found!` });
+            next({ status: 404, message: `user with ID ${req.params.userId} not found` });
         } else {
             req.existingUser = searchedUser;
             next();
+        }
+    } catch (err) {
+        next(err);
+    }    
+}
+
+async function validateInstructorUserIdFromBody(req, res, next) {
+    try {
+        const searchedUser = await Users.getUserById(req.body.userId);
+        if (!searchedUser) {
+            next({ status: 404, message: `user with ID ${req.body.userId} does not exist` });
+        } else {
+            req.existingUser = searchedUser;
+            if (req.existingUser.role === 'Instructor' || req.existingUser.role === 'instructor') {
+                next();
+            } else {
+                next({ status: 401, message: `${req.existingUser.username}'s role of ${req.existingUser.role} is not authorized to teach a class` });
+            }
         }
     } catch (err) {
         next(err);
@@ -134,7 +152,7 @@ async function validateClassId(req, res, next) {
     try {
         const searchedClass = await Classes.getClassById(req.params.classId);
         if (!searchedClass) {
-            next({ status: 404, message: `Class with ID ${req.params.classId} not found!` });
+            next({ status: 404, message: `class with ID ${req.params.classId} not found` });
         } else {
             req.existingClass = searchedClass;
             next();
@@ -169,7 +187,10 @@ const classSchema = yup.object({
         .max(100, 'attendees cannot be more than 100'),
     maxClassSize: yup.number()
         .min(0, 'maxClassSize cannot be less than 0')
-        .max(100, 'maxClassSize cannot be more than 100')
+        .max(100, 'maxClassSize cannot be more than 100'),
+    userId: yup.number()
+        .required('please provide an existing userId which corresponds to the instructor teaching this class')
+        .min(1, 'userId cannot be less than 1')
 });
 
 async function validateClass(req, res, next) {
@@ -207,6 +228,7 @@ function restrictToInstructor(req, res, next) {
 module.exports = {
     logger,
     validateUserId,
+    validateInstructorUserIdFromBody,
     validateUser,
     validatePatchSkip,
     checkUniqueUsername,
