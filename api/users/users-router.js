@@ -68,6 +68,7 @@ router.post('/login', logger, validateLoginBody, checkExistingUsername, async (r
                 token: token,
                 welcomeMessage: `Welcome to Anywhere Fitness, ${username}!`,
                 role: dbUser.role,
+                skip: dbUser.skip,
                 userId: dbUser.userId
             });
         } else {
