@@ -15,7 +15,6 @@ exports.up = async function (knex) {
         .unsigned()
         .references('userId')
         .inTable('users')
-        .onDelete('RESTRICT')
   });
 };
 
